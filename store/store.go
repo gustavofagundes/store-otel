@@ -10,10 +10,10 @@ import (
 )
 
 type Items struct {
-	ID    int64
-	Name  string
-	Qtd   int64
-	Price float32
+	ID    int64   `json:"id"`
+	Name  string  `json:"name"`
+	Qtd   int64   `json:"qtd"`
+	Price float32 `json:"price"`
 }
 
 func ListItems(w http.ResponseWriter, r *http.Request) {
@@ -21,30 +21,35 @@ func ListItems(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		slog.Error(fmt.Sprintf("fail to create client to database %s", err.Error()))
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	var items []Items
 
-	err = json.NewDecoder(r.Body).Decode(&items)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
-	}
-
 	rows, err := db.Query("SELECT * FROM items")
 	if err != nil {
 		slog.Error(fmt.Sprintf("error to query on the database, err: %s", err.Error()))
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 	defer rows.Close()
 	// Loop through rows, using Scan to assign column data to struct fields.
 	for rows.Next() {
 		var item Items
-		if err := rows.Scan(&item.ID, item.Name, &item.Qtd, &item.Price); err != nil {
+		if err := rows.Scan(&item.ID, &item.Name, &item.Qtd, &item.Price); err != nil {
 			slog.Error(fmt.Sprintf("error to scan row, err: %s", err.Error()))
+			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 		items = append(items, item)
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	err = json.NewEncoder(w).Encode(items)
+	if err != nil {
+		slog.Error(fmt.Sprintf("Error to encoded struct %s", err.Error()))
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
 	}
 
 }

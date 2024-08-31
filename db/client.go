@@ -39,5 +39,5 @@ func NewClient() (*sql.DB, error) {
 
 	fmt.Println("Connected!")
 
-	return db, niç
+	return db, nil
 }

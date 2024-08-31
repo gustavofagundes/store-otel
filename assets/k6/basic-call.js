@@ -6,5 +6,5 @@ export const options = {
 };
 
 export default function () {
-  const response = http.get("http://localhost:8080/itens");
+  const response = http.get("http://localhost:8080/items");
 }

@@ -1,0 +1,27 @@
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    command:
+      - "--character-set-server=utf8mb4"
+      - "--collation-server=utf8mb4_unicode_ci"
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "store"
+      MYSQL_USER: "user"
+      MYSQL_PASSWORD: "pass"
+    volumes:
+      - "./config.sql:/docker-entrypoint-initdb.d/dump.sql"
+
+  jaeger-all-in-one:
+    image: jaegertracing/all-in-one:latest
+    restart: always
+    ports:
+      - "16686:16686"
+      - "16685:16685"
+      - "14268"
+      - "14250"
+      - "4317:4317"
+      - "4318:4318"

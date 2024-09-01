@@ -8,6 +8,17 @@ docker-compose -f .\assets\docker\docker-compose.yaml up -d
 docker-compose -f .\assets\docker\docker-compose.yaml stop
 docker-compose -f .\assets\docker\docker-compose.yaml rm
 
+## commands to help
+- if some service conflicts any port use this command to find the process
+windows
+```
+netstat -ano | findstr 3306
+```
+linux
+```
+netstat -ano | grep 3306
+```
+
 # Mysql
  mysql -u root -proot
  mysql -u user -ppass

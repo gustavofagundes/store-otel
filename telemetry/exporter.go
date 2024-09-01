@@ -1,4 +1,4 @@
-package otel
+package telemetry
 
 import (
 	"go.opentelemetry.io/otel/exporters/stdout/stdoutmetric"

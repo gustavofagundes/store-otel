@@ -36,7 +36,7 @@ curl --location 'http://localhost:8080/add' \
         "price":860.99
     },
     {
-        "name":"car",
+        "name":"uno",
         "qtd":5,
         "price":700.00
     }
@@ -49,5 +49,19 @@ curl --location 'http://localhost:8080/add' \
 
 this endpoint You can select items present in the database and subtract the quantity specified on the list
 ```bash
+curl --location 'http://localhost:8080/buy' \
+--header 'Content-Type: application/json' \
+--data '{
+    "items":[
+    {
+        "name":"iphone",
+        "qtd":5
+    },
+    {
+        "name":"uno",
+        "qtd":1
+    }
 
+    ]
+}'
 ```

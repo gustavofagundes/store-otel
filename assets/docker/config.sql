@@ -4,7 +4,7 @@ CREATE TABLE items (
   id         INT AUTO_INCREMENT NOT NULL,
   name       VARCHAR(128) NOT NULL,
   qtd        INT NOT NULL,
-  price      DECIMAL(5,2) NOT NULL,
+  price      DECIMAL(20,2) NOT NULL,
   PRIMARY KEY (id)
 );
 

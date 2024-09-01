@@ -14,7 +14,7 @@ func main() {
 	router.Use(otelmux.Middleware("store-otel"))
 	router.HandleFunc("/items", store.ListItems)
 	router.HandleFunc("/buy", store.BuyItems)
-	router.HandleFunc("/save", store.SaveItems)
+	router.HandleFunc("/add", store.AddItems)
 	http.Handle("/", router)
 	slog.Info("Server starting on port 8080...")
 	err := http.ListenAndServe(":8080", nil)

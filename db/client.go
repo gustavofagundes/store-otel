@@ -3,7 +3,7 @@ package db
 import (
 	"database/sql"
 	"fmt"
-	"log"
+	"log/slog"
 	"os"
 
 	"github.com/go-sql-driver/mysql"
@@ -16,7 +16,7 @@ func NewClient() (*sql.DB, error) {
 	if db != nil {
 		pingErr := db.Ping()
 		if pingErr != nil {
-			log.Fatal(pingErr)
+			slog.Error(fmt.Sprintf("fail connection with the database, err: %s", pingErr.Error()))
 			return nil, pingErr
 		}
 		return db, nil
@@ -33,11 +33,11 @@ func NewClient() (*sql.DB, error) {
 	var err error
 	db, err = sql.Open("mysql", cfg.FormatDSN())
 	if err != nil {
-		log.Fatal(err)
+		slog.Error(fmt.Sprintf("fail to get the handle of database connection, err: %s", err.Error()))
 		return nil, err
 	}
 
-	fmt.Println("Connected!")
+	slog.Info("Database Connected!")
 
 	return db, nil
 }

@@ -9,13 +9,6 @@ import (
 	"github.com/gustavofagunde/store-otel/db"
 )
 
-type Items struct {
-	ID    int64   `json:"id"`
-	Name  string  `json:"name"`
-	Qtd   int64   `json:"qtd"`
-	Price float32 `json:"price"`
-}
-
 func ListItems(w http.ResponseWriter, r *http.Request) {
 	db, err := db.NewClient()
 
@@ -51,13 +44,5 @@ func ListItems(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-
-}
-
-func BuyItems(w http.ResponseWriter, r *http.Request) {
-
-}
-
-func SaveItems(w http.ResponseWriter, r *http.Request) {
 
 }

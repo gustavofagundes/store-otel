@@ -19,6 +19,9 @@ linux
 netstat -ano | grep 3306
 ```
 
+## links
+Jaeger - http://localhost:16686/
+
 # Mysql
  mysql -u root -proot
  mysql -u user -ppass

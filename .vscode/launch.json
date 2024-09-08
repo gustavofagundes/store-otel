@@ -13,7 +13,8 @@
             "program": ".\\cmd\\main.go",
             "env": {
                "DBUSER": "user",
-               "DBPASS": "pass"
+               "DBPASS": "pass",
+               "otel_grafana_token":"b3RlbC1zdG9yZTpnbGNfZXlKdklqb2lNVEl4TURjNE9TSXNJbTRpT2lKdmRHVnNMWE4wYjNKbExXOTBaV3d0YzNSdmNtVWlMQ0pySWpvaWEwaGlNa3cwVldjeVZUQmpOemd5WTJNMWFtSTBZekp1SWl3aWJTSTZleUp5SWpvaWNISnZaQzF6WVMxbFlYTjBMVEVpZlgwPQ=="
             }
         }
     ]

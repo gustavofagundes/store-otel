@@ -7,9 +7,19 @@ import (
 	"net/http"
 
 	"github.com/gustavofagunde/store-otel/db"
+	"github.com/gustavofagunde/store-otel/telemetry"
+	"go.opentelemetry.io/otel/attribute"
+	semconv "go.opentelemetry.io/otel/semconv/v1.26.0"
 )
 
 func BuyItems(w http.ResponseWriter, r *http.Request) {
+	_, span := telemetry.Tracer.Start(r.Context(), "buyItems")
+	span.SetAttributes(
+		attribute.KeyValue{Key: semconv.HTTPRequestMethodKey, Value: attribute.StringValue(r.Method)},
+		attribute.KeyValue{Key: semconv.ServerAddressKey, Value: attribute.StringValue(r.URL.String())},
+		attribute.KeyValue{Key: semconv.URLPathKey, Value: attribute.StringValue(r.URL.Path)},
+	)
+	defer span.End()
 	db, err := db.NewClient()
 
 	if err != nil {
